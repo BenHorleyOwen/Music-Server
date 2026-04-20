@@ -12,6 +12,8 @@ services:
     volumes:
       - ./data/navidrome:/data
       - ./music:/music
+    networks:
+      - MusicNet
 
   slskd:
     image: slskd/slskd:latest
@@ -30,6 +32,8 @@ services:
       - SLSKD_SLSK_PASSWORD=${SLSKD_PASSWORD}
       - SLSKD_DOWNLOADS_DIR=/downloads
       - SLSKD_SHARED_DIR=/music
+    networks:
+      - MusicNet
   beets:
     image: linuxserver/beets:latest
     container_name: beets
@@ -49,3 +53,5 @@ services:
         sleep 60;
       done
       "
+networks:
+  MusicNet:
