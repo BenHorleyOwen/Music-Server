@@ -1,0 +1,51 @@
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    restart: unless-stopped
+    ports:
+      - "4533:4533"
+    environment:
+      - ND_SCANSCHEDULE=1h
+      - ND_LOGLEVEL=info
+      - ND_SESSIONTIMEOUT=24h
+    volumes:
+      - ./data/navidrome:/data
+      - ./music:/music
+
+  slskd:
+    image: slskd/slskd:latest
+    container_name: slskd
+    restart: unless-stopped
+    ports:
+      - "5030:5030"
+      - "5031:5031"
+    volumes:
+      - ./data/slskd:/app
+      - ./downloads:/downloads
+      - ./music:/music
+    environment:
+      - SLSKD_REMOTE_CONFIGURATION=true
+      - SLSKD_SLSK_USERNAME=${SLSKD_USERNAME}
+      - SLSKD_SLSK_PASSWORD=${SLSKD_PASSWORD}
+      - SLSKD_DOWNLOADS_DIR=/downloads
+      - SLSKD_SHARED_DIR=/music
+  beets:
+    image: linuxserver/beets:latest
+    container_name: beets
+    restart: unless-stopped
+    volumes:
+      - ./config/beets:/config
+      - ./downloads:/downloads
+      - ./music:/music
+    environment:
+      - PUID=1000
+      - PGID=1000
+    command: >
+      sh -c "
+      while true; do
+        echo 'Checking for new music...' &&
+        beet import -q /downloads;
+        sleep 60;
+      done
+      "
