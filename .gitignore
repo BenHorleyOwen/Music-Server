@@ -3,3 +3,6 @@ data/*
 downloads/*
 music/*
 config/beets/beet.log
+config/beets/.bash_history
+config/beets/beet.log
+config/beets/musiclibrary.blb
