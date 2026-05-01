@@ -37,7 +37,7 @@ services:
       - SLSKD_SLSK_USERNAME=${SLSKD_USERNAME}
       - SLSKD_SLSK_PASSWORD=${SLSKD_PASSWORD}
       - SLSKD_DOWNLOADS_DIR=/downloads
-      - SLSKD_SHARED_DIR=/music
+      - SLSKD_SHARED_DIR=/music 
     labels:
       - homepage.group=Media
       - homepage.name=slskd
@@ -61,7 +61,7 @@ services:
       sh -c "
       while true; do
         echo 'Checking for new music...' &&
-        BEETSDIR=/config beet -vvv import /downloads;
+        BEETSDIR=/config beet -v import /downloads;
         sleep 60;
       done
       "
