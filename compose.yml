@@ -12,6 +12,12 @@ services:
     volumes:
       - ./data/navidrome:/data
       - ./music:/music
+    labels:
+      - homepage.group=Media
+      - homepage.name=Navidrome
+      - homepage.url=http://pc:4533
+      - homepage.description=Navidrome is a web-based music collection server and streamer
+      - homepage.features=Music streaming, Web-based interface, Mobile support, Metadata management, Playlist creation
     networks:
       - MusicNet
 
@@ -32,6 +38,12 @@ services:
       - SLSKD_SLSK_PASSWORD=${SLSKD_PASSWORD}
       - SLSKD_DOWNLOADS_DIR=/downloads
       - SLSKD_SHARED_DIR=/music
+    labels:
+      - homepage.group=Media
+      - homepage.name=slskd
+      - homepage.url=http://pc:5030/searches
+      - homepage.description=slskd is a file sharing client for the Soulseek network, ingests music to the navidrome library.
+      - homepage.features=File sharing, Soulseek client, Music downloading, Command-line interface
     networks:
       - MusicNet
   beets:
@@ -49,9 +61,16 @@ services:
       sh -c "
       while true; do
         echo 'Checking for new music...' &&
-        beet import -q /downloads;
+        BEETSDIR=/config beet -vvv import /downloads;
         sleep 60;
       done
       "
+    labels:
+      - homepage.group=Media
+      - homepage.name=Beets
+      - homepage.url=https://beets.io/
+      - homepage.description=Beets is a media library management system for music files. It catalogs your collection, automatically improving its metadata as it goes.
+      - homepage.features=Library management, Metadata tagging, Music organization, Command-line interface, Plugin
+      
 networks:
   MusicNet:

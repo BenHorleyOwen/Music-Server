@@ -20,13 +20,14 @@ paths:
 #    albumtype_soundtrack: Soundtracks/$album/$track $title
 
 import:
+    quiet: no
     write: yes
     copy: no
     move: yes
-    resume: yes
     incremental: no
-    quiet_fallback: asis
     timid: no
+    quiet_fallback: asis
+    none_rec_action: asis
     singletons: yes
     log: /config/beet.log
     autotag: yes

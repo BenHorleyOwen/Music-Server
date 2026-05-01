@@ -23,5 +23,5 @@ BEETSDIR=/config
 export BEETSDIR
 FPCALC=/usr/bin/fpcalc
 export FPCALC
-/lsiopy/bin/beet -v import -q "$1"
+/lsiopy/bin/beet -vvv import -y "$1"
 
